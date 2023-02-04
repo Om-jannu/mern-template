@@ -48,48 +48,73 @@
 // runCommands();
 
 //---------------------- second running command ----------------------
+
 const { spawn } = require('child_process');
 const { join } = require('path');
 
 const directories = ['server', 'client_og'];
-const commands = [['npm i','npm start'], ['npm i','npm start']];
 let serverDone = false;
+
 const runServer = () =>{
     const dir = directories[0];
-    const cmd = commands[0];
     process.chdir(join(__dirname, dir));
     console.log(`Changed to directory: ${process.cwd()}`);
-    const command = spawn(cmd[0], { shell: true });
-    console.log("Starting Server using 'npm start' in server directory\n");
-    command.stdout.on('data', (data) => {
+
+    // installing required packages for server
+    const ser_NI = spawn("npm",["install"], { shell: true });
+    console.log("Installing Server packages using 'npm install' in server directory\n");
+    ser_NI.stdout.on('data', (data) => {
         console.log(`stdout of server: ${data}`);
     });
-    command.stderr.on('data', (data) => {
+    ser_NI.stderr.on('data', (data) => {
         console.error(`stderr of server: ${data}`);
     });
+    ser_NI.on('close', (code) => {
+        console.log(`server process exited with code ${code}`);
+    });
 
-    command.on('close', (code) => {
+    // Starting server
+    const ser_NS = spawn("npm",["start"], { shell: true });
+    console.log("Starting Server using 'npm start' in server directory\n");
+    ser_NS.stdout.on('data', (data) => {
+        console.log(`stdout of server: ${data}`);
+    });
+    ser_NS.stderr.on('data', (data) => {
+        console.error(`stderr of server: ${data}`);
+    });
+    ser_NS.on('close', (code) => {
         console.log(`server process exited with code ${code}`);
     });
     serverDone = true;
 }
 const runClient = () =>{
     const dir = directories[1];
-    const cmd = commands[1];
     process.chdir(join(__dirname, dir));
     console.log(`Changed to directory: ${process.cwd()}`);
-    const command = spawn(cmd[0], { shell: true });
-    console.log("Starting Client using 'npm start' in client directory\n");
 
-    command.stdout.on('data', (data) => {
+    // installing required packages for client
+    const cli_NI = spawn("npm",["install"], { shell: true });
+    console.log("Installing Client packages using 'npm install' in client directory\n");
+    cli_NI.stdout.on('data', (data) => {
         console.log(`stdout of client: ${data}`);
     });
-
-    command.stderr.on('data', (data) => {
+    cli_NI.stderr.on('data', (data) => {
         console.error(`stderr of client: ${data}`);
     });
+    cli_NI.on('close', (code) => {
+        console.log(`client process exited with code ${code}`);
+    });
 
-    command.on('close', (code) => {
+    // Starting client
+    const cli_NS = spawn("npm",["start"], { shell: true });
+    console.log("Starting Client using 'npm start' in client directory\n");
+    cli_NS.stdout.on('data', (data) => {
+        console.log(`stdout of client: ${data}`);
+    });
+    cli_NS.stderr.on('data', (data) => {
+        console.error(`stderr of client: ${data}`);
+    });
+    cli_NS.on('close', (code) => {
         console.log(`client process exited with code ${code}`);
     });
 }
@@ -98,25 +123,67 @@ if(serverDone){
     runClient();
 }
 
-// for (let i = 0; i < directories.length; i++) {
-//     const dir = directories[i];
-//     const cmd = commands[i];
 
-//     process.chdir(join(__dirname, dir));
-//     console.log(`Changed to directory: ${process.cwd()}`);
+// ------------------third code -----------------------
+// const fs = require('fs');
+// const { exec } = require('child_process');
+// const { join } = require('path');
+// const { spawn } = require('child_process');
 
-//     const command = spawn(cmd[0], { shell: true });
+// const dir1 = 'server';
+// const dir2 = 'client_og';
 
-//     command.stdout.on('data', (data) => {
-//         console.log(`stdout of command: ${data}`);
+// // Function to access and run commands in dir1
+// const runCommandsInDir1 = () => {
+//   // Change to dir1
+//   process.chdir(join(__dirname,dir1));
+
+//   // Run npm install in dir1
+//   exec('npm install', (error, stdout, stderr) => {
+//     if (error) {
+//       console.error(`exec error: ${error}`);
+//       return;
+//     }
+//     console.log(`npm install in dir1: ${stdout}`);
+
+//     // Run npm start in dir1 after npm install has completed
+//     const npmStart = spawn('npm', ['start'], {shell:true});
+//     npmStart.stdout.on('data', (data) => {
+//       console.log(`npm start in dir1: ${data}`);
 //     });
-
-//     command.stderr.on('data', (data) => {
-//         console.error(`stderr of command: ${data}`);
+//     npmStart.stderr.on('data', (data) => {
+//       console.error(`npm start in dir1: ${data}`);
 //     });
+//   });
+// };
 
-//     command.on('close', (code) => {
-//         console.log(`command process exited with code ${code}`);
+// // Function to access and run commands in dir2
+// const runCommandsInDir2 = () => {
+//   // Change to dir2
+//   process.chdir(join(__dirname,dir2));
+
+//   // Run npm install in dir2
+//   exec('npm install', (error, stdout, stderr) => {
+//     if (error) {
+//       console.error(`exec error: ${error}`);
+//       return;
+//     }
+//     console.log(`npm install in dir2: ${stdout}`);
+
+//     // Run npm start in dir2 after npm install has completed
+//     const npmStart = spawn('npm', ['start'], {shell:true});
+//     npmStart.stdout.on('data', (data) => {
+//       console.log(`npm start in dir2: ${data}`);
 //     });
-// }
+//     npmStart.stderr.on('data', (data) => {
+//       console.error(`npm start in dir2: ${data}`);
+//     });
+//   });
+// };
+
+// // Call both functions to run commands in both directories
+// runCommandsInDir1();
+// runCommandsInDir2();
+
+
 
