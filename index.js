@@ -49,32 +49,49 @@
 
 //---------------------- second running command ----------------------
 
-const { spawn } = require('child_process');
+const fs = require('fs');
+const { exec } = require('child_process');
 const { join } = require('path');
+const { spawn } = require('child_process');
+
 
 const directories = ['server', 'client_og'];
 let serverDone = false;
 
-const runServer = () =>{
+const exeNI = () => {
+    exec('npm start', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+        console.log("Succesfully Installed required packages");
+    }
+    )
+}
+
+const runServer = () => {
     const dir = directories[0];
     process.chdir(join(__dirname, dir));
     console.log(`Changed to directory: ${process.cwd()}`);
 
+    exeNI();
     // installing required packages for server
-    const ser_NI = spawn("npm",["install"], { shell: true });
-    console.log("Installing Server packages using 'npm install' in server directory\n");
-    ser_NI.stdout.on('data', (data) => {
-        console.log(`stdout of server: ${data}`);
-    });
-    ser_NI.stderr.on('data', (data) => {
-        console.error(`stderr of server: ${data}`);
-    });
-    ser_NI.on('close', (code) => {
-        console.log(`server process exited with code ${code}`);
-    });
+    // const ser_NI = spawn("npm", ["install"], { shell: true });
+    // console.log("Installing Server packages using 'npm install' in server directory\n");
+    // ser_NI.stdout.on('data', (data) => {
+    //     console.log(`stdout of server: ${data}`);
+    // });
+    // ser_NI.stderr.on('data', (data) => {
+    //     console.error(`stderr of server: ${data}`);
+    // });
+    // ser_NI.on('close', (code) => {
+    //     console.log(`server process exited with code ${code}`);
+    // });
 
     // Starting server
-    const ser_NS = spawn("npm",["start"], { shell: true });
+    const ser_NS = spawn("npm", ["start"], { shell: true });
     console.log("Starting Server using 'npm start' in server directory\n");
     ser_NS.stdout.on('data', (data) => {
         console.log(`stdout of server: ${data}`);
@@ -87,26 +104,28 @@ const runServer = () =>{
     });
     serverDone = true;
 }
-const runClient = () =>{
+const runClient = () => {
     const dir = directories[1];
     process.chdir(join(__dirname, dir));
     console.log(`Changed to directory: ${process.cwd()}`);
 
+    exeNI();
+
     // installing required packages for client
-    const cli_NI = spawn("npm",["install"], { shell: true });
-    console.log("Installing Client packages using 'npm install' in client directory\n");
-    cli_NI.stdout.on('data', (data) => {
-        console.log(`stdout of client: ${data}`);
-    });
-    cli_NI.stderr.on('data', (data) => {
-        console.error(`stderr of client: ${data}`);
-    });
-    cli_NI.on('close', (code) => {
-        console.log(`client process exited with code ${code}`);
-    });
+    // const cli_NI = spawn("npm", ["install"], { shell: true });
+    // console.log("Installing Client packages using 'npm install' in client directory\n");
+    // cli_NI.stdout.on('data', (data) => {
+    //     console.log(`stdout of client: ${data}`);
+    // });
+    // cli_NI.stderr.on('data', (data) => {
+    //     console.error(`stderr of client: ${data}`);
+    // });
+    // cli_NI.on('close', (code) => {
+    //     console.log(`client process exited with code ${code}`);
+    // });
 
     // Starting client
-    const cli_NS = spawn("npm",["start"], { shell: true });
+    const cli_NS = spawn("npm", ["start"], { shell: true });
     console.log("Starting Client using 'npm start' in client directory\n");
     cli_NS.stdout.on('data', (data) => {
         console.log(`stdout of client: ${data}`);
@@ -119,7 +138,7 @@ const runClient = () =>{
     });
 }
 runServer();
-if(serverDone){
+if (serverDone) {
     runClient();
 }
 
