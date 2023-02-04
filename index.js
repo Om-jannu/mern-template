@@ -52,7 +52,7 @@ const { spawn } = require('child_process');
 const { join } = require('path');
 
 const directories = ['server', 'client_og'];
-const commands = [['npm start'], ['npm start']];
+const commands = [['npm i','npm start'], ['npm i','npm start']];
 let serverDone = false;
 const runServer = () =>{
     const dir = directories[0];
@@ -64,7 +64,6 @@ const runServer = () =>{
     command.stdout.on('data', (data) => {
         console.log(`stdout of server: ${data}`);
     });
-
     command.stderr.on('data', (data) => {
         console.error(`stderr of server: ${data}`);
     });
