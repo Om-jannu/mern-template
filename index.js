@@ -51,7 +51,7 @@
 const { spawn } = require('child_process');
 const { join } = require('path');
 
-const directories = ['server', 'client'];
+const directories = ['server', 'client_og'];
 const commands = [['npm start'], ['npm start']];
 let serverDone = false;
 const runServer = () =>{
