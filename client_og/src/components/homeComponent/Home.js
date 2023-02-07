@@ -1,33 +1,44 @@
 import React from "react";
 import "./homeStyle.css";
 import { useEffect, useState } from "react";
-const Home=()=> {
-  const [data , setData] = useState("");
+// const url = require("url")
+const Home = () => {
+  const [data, setData] = useState("");
+  console.log(setData);
   useEffect(() => {
-    fetch('http://localhost:5000/test')
-    .then(response => {
-      if(response.ok){
-        return response.json()
-      }
-      throw response;
-    })
-    .then(json_data =>{
-      setData(json_data)
-    })
-    .catch(error =>{
-      console.error(`error while fetching api data :${error}`);
-    })
+    const toSearch = "3000"
+    const myURL = window.location.href;
+    const target = myURL.indexOf("3000");
+    const firstPart = myURL.substring(0, target);
+    const secondPart = myURL.substring(target + toSearch.length, myURL.length)
+    if (myURL.includes("3000")) {
+      var url = firstPart + "5000" + secondPart+"test";
+      console.log(url);
+    }
+    fetch(url)
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(json_data => {
+        setData(json_data)
+      })
+      .catch(error => {
+        console.error(`error while fetching api data :${error}`);
+      })
   }, [])
-  
+
   return (
     <>
-        <div className='homecss'>
-            <p>WELCOME MERN DEVELOPER</p>
-            <br />
-            <div className="api_msg">
-              {data ? data.msg :"server not started 😣"}
-            </div>
+      <div className='homecss'>
+        <p>WELCOME MERN DEVELOPER</p>
+        <br />
+        <div className="api_msg">
+          {data ? data.msg : "server not started 😣"}
         </div>
+      </div>
     </>
   )
 }

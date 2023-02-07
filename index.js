@@ -80,7 +80,7 @@ const spawnNS = () =>{
     ser_NS.stderr.on('data', (data) => {
         console.error(`stderr of server: ${data}`);
     });
-    ser_NS.on('close', (code) => {
+    ser_NS.on('exit', (code) => {
         console.log(`server process exited with code ${code}`);
     });
 }
