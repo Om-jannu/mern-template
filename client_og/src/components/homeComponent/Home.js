@@ -6,14 +6,17 @@ const Home = () => {
   const [data, setData] = useState("");
   console.log(setData);
   useEffect(() => {
-    const toSearch = "3000"
+    const toSearch = "3000";
     const myURL = window.location.href;
     const target = myURL.indexOf("3000");
     const firstPart = myURL.substring(0, target);
     const secondPart = myURL.substring(target + toSearch.length, myURL.length)
     if (myURL.includes("3000")) {
-      var url = firstPart + "5000" + secondPart+"test";
-      console.log(url);
+      if(myURL.endsWith("/")){
+        var url = firstPart + "5000" + secondPart+"test";
+      }else{
+        var url = firstPart + "5000" + secondPart+"/test";
+      }
     }
     fetch(url)
       .then(response => {
