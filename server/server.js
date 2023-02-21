@@ -15,11 +15,13 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json({ extended:true }));
 app.use(bodyParser.urlencoded({ extended:true }));
-app.use(cors());
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-}) 
+
+// code to convert client url to server url
+const myServerURL = window.location.href;
+const myClientURL = myServerURL.replace("5000", "3000");
+
+//cors policy
+app.use(cors({origin: myClientURL}));
 
 // all of your routes 
 app.use("/",homeRouter);

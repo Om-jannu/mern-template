@@ -7,16 +7,13 @@ const Home = () => {
   useEffect(() => {
     // code to convert client url to server url
     const myClientURL = window.location.href;
-    console.log(myClientURL);
     const myServerURL = myClientURL.replace("3000", "5000");
     var server_url;
 
     if (myServerURL.charAt(myServerURL.length - 1) === "/") {
       server_url = myServerURL + "test";
-      console.log(server_url);
     } else {
       server_url = myServerURL + "/test";
-      console.log(server_url);
     }
     // fetching server url
     fetch(server_url) 
