@@ -8,10 +8,13 @@ const Home = () => {
   useEffect(() => {
     const toSearch = "3000";
     const myURL = window.location.href;
+    console.log(myURL);
     const target = myURL.indexOf("3000");
     const firstPart = myURL.substring(0, target);
+    console.log(firstPart);
     const secondPart = myURL.substring(target + toSearch.length, myURL.length)
-    if (myURL.includes("3000")) {
+    console.log(secondPart);
+    if (myURL.includes(toSearch)) {
       if(myURL.endsWith("/")){
         var url = firstPart + "5000" + secondPart+"test";
       }else{
