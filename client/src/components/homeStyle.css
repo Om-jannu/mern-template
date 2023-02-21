@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.homecss,.pnfcss{
+    width: 100%;
+    height: 100vh;
+    background-color: #343434;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.homecss p{
+    font-size: xx-large;
+    font-weight: bolder;
+    padding: 1rem 2rem;
+    border-radius: 0.2rem;
+    color: white;
+}
+.api_msg{
+    color: white;
+    margin: 1rem;
+    font-size: xx-large;
+}
+.pnftext{
+    padding: 1rem 0;
+}
+.pnftext p{
+    color: white;
+    font-size: x-large;
+    margin: 2rem 0;
+}
+.pnftext a{
+    padding: 0.2rem 1rem;
+    background-color: brown;
+    color: black;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: x-large;
+}
+.pnfimg{
+    height: 300px;
+    width: 300px;
+    object-fit: contain;
+}
