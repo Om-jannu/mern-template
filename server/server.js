@@ -16,12 +16,8 @@ app.use(cookieParser());
 app.use(bodyParser.json({ extended:true }));
 app.use(bodyParser.urlencoded({ extended:true }));
 
-// code to convert client url to server url
-const myServerURL = window.location.href;
-const myClientURL = myServerURL.replace("5000", "3000");
-
 //cors policy
-app.use(cors({origin: myClientURL}));
+app.use(cors({origin:process.env.SERVER_URL})); // when on production change the url to your server url in .env file
 
 // all of your routes 
 app.use("/",homeRouter);
