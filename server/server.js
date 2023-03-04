@@ -17,7 +17,7 @@ app.use(bodyParser.json({ extended:true }));
 app.use(bodyParser.urlencoded({ extended:true }));
 
 //cors policy
-app.use(cors({origin:process.env.SERVER_URL})); // when on production change the url to your server url in .env file
+app.use(cors()); // when on production change the url to your server url in .env file
 
 // all of your routes 
 app.use("/",homeRouter);
