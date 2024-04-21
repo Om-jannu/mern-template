@@ -1,6 +1,6 @@
-### // example of retrieve a message/document into the mongo database/cluster
+### Example of retrieving a message/document from the mongo database/cluster
 
-
+```
 const SchemaMessage = require("../model/homeModel.js");
 module.exports = {
     post: async(req,res) =>{
@@ -13,11 +13,12 @@ module.exports = {
         }
     }
 };
+```
 
-### // example of inserting a message/document into the mongo database/cluster
+### Example of inserting a message/document into the mongo database/cluster
 
+```
 const SchemaMessage = require("../model/homeModel.js");
-
 module.exports = {
     post: async(req,res) =>{
         const message = req.body;
@@ -32,3 +33,4 @@ module.exports = {
         }
     }
 };
+```
